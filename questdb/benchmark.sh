@@ -26,6 +26,6 @@ time curl -F data=@hits.csv 'http://localhost:9000/imp?name=hits'
 
 du -bcs ~/.questdb/db/hits*
 
-cat log.txt | grep -P '"timings"|"error"|null' | sed -r -e 's/^.*"error".*$/null/; s/^.*"compiler":([0-9]*),"execute":([0-9]*),.*$/\1 \2/' |
-  awk '{ print ($1 + $2) / 1000000000 }' | sed -r -e 's/^0$/null/' |
+cat log.txt | grep -P '"timings"|"error"|null' | sed -r -e 's/^.*"error".*$/null/; s/^.*"execute":([0-9]*),.*$/\1 /' |
+  awk '{ print ($1) / 1000000000 }' | sed -r -e 's/^0$/null/' |
   awk '{ if (i % 3 == 0) { printf "[" }; printf $1; if (i % 3 != 2) { printf "," } else { print "]," }; ++i; }'
